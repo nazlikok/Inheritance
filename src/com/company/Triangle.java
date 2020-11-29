@@ -20,12 +20,13 @@ public class Triangle extends Shape{
     public void print() {
         System.out.print(name);
         System.out.print("\tHeight: "+ height);
-        System.out.print("\ta: "+ a);
-        System.out.print("\tBase: "+ base);
-        System.out.print("\tc: "+ c);
-        System.out.print("\tColor: "+ color);
-        System.out.print("\tArea: "+area());
-        System.out.print("\tCircumference: "+ circumference());
+        System.out.print("\t\t\ta: "+ a);
+        System.out.print("\t\tBase: "+ base);
+        System.out.print("\t\tc: "+ c);
+        System.out.print("\t\tColor: "+ color);
+        System.out.print("\t\tArea: "+area());
+        System.out.print("\t\tCircumference: "+ circumference());
+        System.out.println();
     }
 
 }

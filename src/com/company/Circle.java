@@ -15,10 +15,11 @@ public class Circle extends Shape {
     @Override
     public void print() {
         System.out.print(name);
-        System.out.print("\tCenter: (" + center.pointX + "," + center.pointY + ")");
-        System.out.print("\tRadius: "+ radius);
-        System.out.print("\tColor: "+ color);
-        System.out.print("\tArea: "+area());
-        System.out.print("\tCircumference: "+ circumference());
+        System.out.print("\t\tCenter: (" + center.pointX + "," + center.pointY + ")");
+        System.out.print("\t\t\tRadius: "+ radius);
+        System.out.print("\t\tColor: "+ color);
+        System.out.print("\t\t\tArea: "+area());
+        System.out.print("\t\t\tCircumference: "+ circumference());
+        System.out.println();
     }
 }

@@ -15,10 +15,11 @@ public class Rectangle extends Shape {
     @Override
     public void print() {
         System.out.print(name);
-        System.out.print("\tHeight: "+ height);
-        System.out.print("\tBase: "+ base);
-        System.out.print("\tColor: "+ color);
-        System.out.print("\tArea: "+area());
-        System.out.print("\tCircumference: "+ circumference());
+        System.out.print("\t\tHeight: "+ height);
+        System.out.print("\t\tBase: "+ base);
+        System.out.print("\t\tColor: "+ color);
+        System.out.print("\t\tArea: "+area());
+        System.out.print("\t\tCircumference: "+ circumference());
+        System.out.println();
     }
 }
