@@ -1,5 +1,7 @@
 package com.company;
 
+import java.awt.*;
+
 public class Main2 {
     static String[] Colors = {"Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "Orange", "Brown", "White", "Black"};
     static int totalNum = 10;
@@ -7,8 +9,11 @@ public class Main2 {
     static int min = 1;
 
     public static void main(String[] args) {
+        float sumAreas=0;
+        int countColor[] = new int[Colors.length];
 
         for(int i=0; i<totalNum; i++){
+
             int randShapeNum=(int) (Math.random() * 3);
             Shape testShape;
 
@@ -17,15 +22,26 @@ public class Main2 {
 
             if(randShapeNum==0){
                 testShape= prepareCircle(i,color);
-
             }else if(randShapeNum==1){
                 testShape= prepareTriangle(i,color);
             }else{
                 testShape= prepareRectangle(i,color);
             }
+
+            countColor[randColor] = countColor[randColor] + 1;
+
+            sumAreas= sumAreas+ testShape.area();
             testShape.print();
 
         }
+        float averageArea=sumAreas/totalNum;
+        System.out.println("Average Area:" +averageArea);
+        System.out.println("Sum Area: "+sumAreas);
+
+        for(int i=0; i<Colors.length; i++){
+            System.out.println(Colors[i] + ":" + countColor[i]);
+        }
+
     }
 
     static Circle prepareCircle(int index,String color){
