@@ -10,7 +10,9 @@ public class Main2 {
 
     public static void main(String[] args) {
         float sumAreas=0;
-        int countColor[] = new int[Colors.length];
+        int[] countColor = new int[Colors.length];
+        float largestCircumference =0;
+        Shape largestCircumferenceShape=null;
 
         for(int i=0; i<totalNum; i++){
 
@@ -29,14 +31,22 @@ public class Main2 {
             }
 
             countColor[randColor] = countColor[randColor] + 1;
+            if(testShape.circumference()>largestCircumference){
+                largestCircumference= testShape.circumference();
+                largestCircumferenceShape=testShape;
+            }
 
             sumAreas= sumAreas+ testShape.area();
             testShape.print();
+
 
         }
         float averageArea=sumAreas/totalNum;
         System.out.println("Average Area:" +averageArea);
         System.out.println("Sum Area: "+sumAreas);
+        if(largestCircumferenceShape != null){
+            System.out.println("Largest Circumference: "+ largestCircumference + " with name: "+ largestCircumferenceShape.name);
+        }
 
         for(int i=0; i<Colors.length; i++){
             System.out.println(Colors[i] + ":" + countColor[i]);
