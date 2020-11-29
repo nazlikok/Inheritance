@@ -1,10 +1,8 @@
 package com.company;
 
-import java.awt.*;
-
 public class Main {
     static String[] Colors = {"Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "Orange", "Brown", "White", "Black"};
-    static int totalNum = 10;
+    static int totalNum = 100;
     static int max = 100;
     static int min = 1;
 
@@ -13,6 +11,7 @@ public class Main {
         int[] countColor = new int[Colors.length];
         float largestCircumference =0;
         Shape largestCircumferenceShape=null;
+        Shape[] allShapes = new Shape[totalNum];
 
         for(int i=0; i<totalNum; i++){
 
@@ -38,8 +37,7 @@ public class Main {
 
             sumAreas= sumAreas+ testShape.area();
             testShape.print();
-
-
+            allShapes[i] = testShape;
         }
         float averageArea=sumAreas/totalNum;
         System.out.println("Average Area:" +averageArea);
@@ -51,13 +49,30 @@ public class Main {
         for(int i=0; i<Colors.length; i++){
             System.out.println(Colors[i] + ":" + countColor[i]);
         }
+        System.out.println();
 
+        Shape[] redShapes= new Shape[countColor[0]];
+        int redIndex = 0;
+        for (int i = 0; i < allShapes.length; i++) {
+            if (allShapes[i].color.equals("Red")) {
+                redShapes[redIndex] = allShapes[i];
+                redIndex++;
+            }
+        }
+
+        if(redShapes.length!=0){
+            sortShapeArray(redShapes);
+            System.out.println("Sorted Red Shapes By Area");
+            for (int i = 0; i < redShapes.length; i++) {
+                redShapes[i].print();
+            }
+        }
     }
 
     static Circle prepareCircle(int index,String color){
         Circle testCircle = new Circle();
         //Name
-        testCircle.name = "Circle-" + String.format("%03d", index);
+        testCircle.name = "Circle-" + String.format("%03d", index+1);
         //Center
         int randX = (int) (Math.random() * (max - min)) + min;
         int randY = (int) (Math.random() * (max - min)) + min;
@@ -66,7 +81,7 @@ public class Main {
         circleCenter.pointY = randY;
         testCircle.center = circleCenter;
         //Radius
-        testCircle.radius = (int) (Math.random() * (max / 4));
+        testCircle.radius = (float) (Math.random() * (max/4));
         //Color
         testCircle.color=color;
         return testCircle;
@@ -76,7 +91,7 @@ public class Main {
     static Triangle prepareTriangle(int index,String color){
         Triangle testTriangle = new Triangle();
         //Name
-        testTriangle.name = "Triangle-" + String.format("%03d", index);
+        testTriangle.name = "Triangle-" + String.format("%03d", index+1);
         //height
         testTriangle.height = (int) (Math.random() * (max / 4));
         //a
@@ -93,7 +108,7 @@ public class Main {
     static Rectangle prepareRectangle(int index,String color){
         Rectangle testRectangle = new Rectangle();
         //Name
-        testRectangle.name = "Rectangle-" + String.format("%03d", index);
+        testRectangle.name = "Rectangle-" + String.format("%03d", index+1);
         //height
         testRectangle.height = (int) (Math.random() * (max / 4));
         //base
@@ -101,5 +116,19 @@ public class Main {
         //Color
         testRectangle.color=color;
         return testRectangle;
+    }
+
+    static void sortShapeArray(Shape[] shapes) {
+        //bubble sort
+        int n = shapes.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (shapes[j].area() > shapes[j + 1].area()) {
+                    Shape temp = shapes[j];
+                    shapes[j] = shapes[j + 1];
+                    shapes[j + 1] = temp;
+                }
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.company;
 
 public class Circle extends Shape {
-    int radius;
+    float radius;
     Point center;
     @Override
     public float area() {
