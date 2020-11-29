@@ -1,157 +1,105 @@
-/*
 package com.company;
+
+import java.awt.*;
 
 public class Main {
     static String[] Colors = {"Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "Orange", "Brown", "White", "Black"};
+    static int totalNum = 10;
+    static int max = 100;
+    static int min = 1;
 
     public static void main(String[] args) {
+        float sumAreas=0;
+        int[] countColor = new int[Colors.length];
+        float largestCircumference =0;
+        Shape largestCircumferenceShape=null;
 
-        int totalNum = 100;
-        int max = 100;
-        int min = 1;
-        float sumCircle=0;
-        float sumTriangle=0;
-        float sumRectangle=0;
+        for(int i=0; i<totalNum; i++){
 
-        int circleCount = (int) (Math.random() *(max - min));
-        int triangleCount = (int)(Math.random()*(max-circleCount-min));
-        int left= totalNum-circleCount;
-        int rectangleCount = left-triangleCount;
+            int randShapeNum=(int) (Math.random() * 3);
+            Shape testShape;
 
-        System.out.println("Circle count is:"+ circleCount + "  Triangle count is:"+ triangleCount + "  Rectangle count is:"+ rectangleCount);
-        System.out.println();
-        int countCircleColors[] = new int[Colors.length];
-        int countTriangleColors[] = new int[Colors.length];
-        int countRectangleColors[] = new int[Colors.length];
-
-        //CIRCLE
-        for (int i=1; i<=circleCount; i++){
-            Shapes.Circles testCircle = new Shapes.Circles();
-
-            //Name
-            testCircle.shapesName = "Circle-" + String.format("%03d", i);
-            System.out.println(testCircle.shapesName);
-
-            //Center
-            int randX = (int) (Math.random() * (max - min)) + min;
-            int randY = (int) (Math.random() * (max - min)) + min;
-            Point circleCenter = new Point();
-            circleCenter.pointX = randX;
-            circleCenter.pointY = randY;
-            testCircle.center = circleCenter;
-            System.out.println("Center: (" + circleCenter.pointX + "," + circleCenter.pointY + ")");
-
-            //Radius
-            testCircle.radius = (int) (Math.random() * (max / 4));
-            System.out.println("Radius: "+ testCircle.radius);
-
-            //Color
             int randColor = (int) (Math.random() * Colors.length);
-            testCircle.shapesColor = Colors[randColor];
-            System.out.println("Color : " + testCircle.shapesColor);
-            countCircleColors[randColor] = countCircleColors[randColor] + 1;
+            String color= Colors[randColor];
 
-            //Area
-            testCircle.area = (float) Math.PI* testCircle.radius* testCircle.radius;
-            System.out.println("Area : " + testCircle.area);
-            float add= (float)testCircle.area;
-            sumCircle =  sumCircle + add;
+            if(randShapeNum==0){
+                testShape= prepareCircle(i,color);
+            }else if(randShapeNum==1){
+                testShape= prepareTriangle(i,color);
+            }else{
+                testShape= prepareRectangle(i,color);
+            }
 
-            //Circumference
-            testCircle.circumference=(float)Math.PI*2*testCircle.radius;
-            System.out.println("Circumference: "+ testCircle.circumference);
+            countColor[randColor] = countColor[randColor] + 1;
+            if(testShape.circumference()>largestCircumference){
+                largestCircumference= testShape.circumference();
+                largestCircumferenceShape=testShape;
+            }
 
-            System.out.println();
+            sumAreas= sumAreas+ testShape.area();
+            testShape.print();
+
+
         }
-        System.out.println("Sum of Circle Areas: "+ sumCircle);
-        System.out.println("Average Area:"+ sumCircle/circleCount);
-        for (int i = 0; i < countCircleColors.length; i++) {
-            System.out.println(Colors[i] + " =" + countCircleColors[i]);
+        float averageArea=sumAreas/totalNum;
+        System.out.println("Average Area:" +averageArea);
+        System.out.println("Sum Area: "+sumAreas);
+        if(largestCircumferenceShape != null){
+            System.out.println("Largest Circumference: "+ largestCircumference + " with name: "+ largestCircumferenceShape.name);
         }
-        System.out.println();
 
-
-        //TRIANGLE
-        for (int i=1; i<=triangleCount; i++){
-            Shapes.Triangles testTriangle = new Shapes.Triangles();
-
-            //Name
-            testTriangle.shapesName = "Triangle-" + String.format("%03d", i);
-            System.out.println(testTriangle.shapesName);
-
-            //height
-            testTriangle.height = (int) (Math.random() * (max / 4));
-            System.out.println("Height: "+ testTriangle.height);
-
-            //base
-            testTriangle.base = (int) (Math.random() * (max / 4));
-            System.out.println("Base: "+ testTriangle.base);
-
-            //Color
-            int randColor = (int) (Math.random() * Colors.length);
-            testTriangle.shapesColor = Colors[randColor];
-            System.out.println("Color : " + testTriangle.shapesColor);
-            countTriangleColors[randColor] = countTriangleColors[randColor] + 1;
-
-            //Area
-            testTriangle.area = (float) testTriangle.base* testTriangle.height/2;
-            System.out.println("Area : " + testTriangle.area);
-            float add= (float)testTriangle.area;
-            sumTriangle =  sumTriangle + add;
-
-            //Perimeter
-            System.out.println();
+        for(int i=0; i<Colors.length; i++){
+            System.out.println(Colors[i] + ":" + countColor[i]);
         }
-        System.out.println("Sum of Triangle Areas: "+ sumTriangle);
-        System.out.println("Average Area:"+ sumTriangle/triangleCount);
-        for (int i = 0; i < countTriangleColors.length; i++) {
-            System.out.println(Colors[i] + " =" + countTriangleColors[i]);
-        }
-        System.out.println();
-
-
-        //RECTANGLE
-        for (int i=1; i<=rectangleCount; i++){
-            Shapes.Rectangles testRectangle = new Shapes.Rectangles();
-
-            //Name
-            testRectangle.shapesName = "Rectangle-" + String.format("%03d", i);
-            System.out.println(testRectangle.shapesName);
-
-            //height
-            testRectangle.height = (int) (Math.random() * (max / 4));
-            System.out.println("Height: "+ testRectangle.height);
-
-            //base
-            testRectangle.base = (int) (Math.random() * (max / 4));
-            System.out.println("Base: "+ testRectangle.base);
-
-            //Color
-            int randColor = (int) (Math.random() * Colors.length);
-            testRectangle.shapesColor = Colors[randColor];
-            System.out.println("Color : " + testRectangle.shapesColor);
-            countRectangleColors[randColor] = countRectangleColors[randColor] + 1;
-
-            //Area
-            testRectangle.area = (float) testRectangle.base* testRectangle.height;
-            System.out.println("Area : " + testRectangle.area);
-            float add= (float)testRectangle.area;
-            sumRectangle =  sumRectangle + add;
-
-            //Perimeter
-            testRectangle.circumference=(float)(2*testRectangle.base)+(2*testRectangle.height);
-            System.out.println("Circumference: "+ testRectangle.circumference);
-
-            System.out.println();
-        }
-        System.out.println("Sum of Rectangle Areas: "+ sumRectangle);
-        System.out.println("Average Area:"+ sumRectangle/rectangleCount);
-        for (int i = 0; i < countRectangleColors.length; i++) {
-            System.out.println(Colors[i] + " =" + countRectangleColors[i]);
-        }
-        System.out.println();
-
 
     }
+
+    static Circle prepareCircle(int index,String color){
+        Circle testCircle = new Circle();
+        //Name
+        testCircle.name = "Circle-" + String.format("%03d", index);
+        //Center
+        int randX = (int) (Math.random() * (max - min)) + min;
+        int randY = (int) (Math.random() * (max - min)) + min;
+        Point circleCenter = new Point();
+        circleCenter.pointX = randX;
+        circleCenter.pointY = randY;
+        testCircle.center = circleCenter;
+        //Radius
+        testCircle.radius = (int) (Math.random() * (max / 4));
+        //Color
+        testCircle.color=color;
+        return testCircle;
+
+    }
+
+    static Triangle prepareTriangle(int index,String color){
+        Triangle testTriangle = new Triangle();
+        //Name
+        testTriangle.name = "Triangle-" + String.format("%03d", index);
+        //height
+        testTriangle.height = (int) (Math.random() * (max / 4));
+        //a
+        testTriangle.a = (int) (Math.random() * (max / 4));
+        //base
+        testTriangle.base = (int) (Math.random() * (max / 4));
+        //c
+        testTriangle.c = (int) (Math.random() * (max / 4));
+        //Color
+        testTriangle.color=color;
+        return testTriangle;
+    }
+
+    static Rectangle prepareRectangle(int index,String color){
+        Rectangle testRectangle = new Rectangle();
+        //Name
+        testRectangle.name = "Rectangle-" + String.format("%03d", index);
+        //height
+        testRectangle.height = (int) (Math.random() * (max / 4));
+        //base
+        testRectangle.base = (int) (Math.random() * (max / 4));
+        //Color
+        testRectangle.color=color;
+        return testRectangle;
+    }
 }
-*/
