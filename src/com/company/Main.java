@@ -5,6 +5,7 @@ public class Main {
     static int totalNum = 100;
     static int max = 100;
     static int min = 1;
+    static String[] WrongNames ={"Circle-008","Rectangle-021","Triangle-012"};
 
     public static void main(String[] args) {
         float sumAreas=0;
@@ -18,7 +19,13 @@ public class Main {
             int randShapeNum=(int) (Math.random() * 3);
             Shape testShape;
 
-            int randColor = (int) (Math.random() * Colors.length);
+            int randColor = (int) (Math.random() * (Colors.length + 1));
+            try {
+                checkColor(randColor);
+            } catch (UnknownColorException e) {
+                System.out.println("Color corrected to RED");
+                randColor = 0;
+            }
             String color= Colors[randColor];
 
             if(randShapeNum==0){
@@ -27,6 +34,13 @@ public class Main {
                 testShape= prepareTriangle(i,color);
             }else{
                 testShape= prepareRectangle(i,color);
+            }
+
+            try{
+                checkName(testShape.name);
+            }catch (WrongNameException e){
+                e.printStackTrace();
+                testShape.name= testShape.name+"-Corrected";
             }
 
             countColor[randColor] = countColor[randColor] + 1;
@@ -68,6 +82,20 @@ public class Main {
             }
         }
     }
+
+    static void checkColor(int randColor) throws UnknownColorException {
+        if (randColor == Colors.length){
+            throw new UnknownColorException();
+        }
+    }
+    public static void checkName(String name){
+        for(int i=0; i< WrongNames.length; i++){
+            if(name.equals(WrongNames[i])){
+                throw new WrongNameException();
+            }
+        }
+    }
+
 
     static Circle prepareCircle(int index,String color){
         Circle testCircle = new Circle();
