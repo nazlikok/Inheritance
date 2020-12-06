@@ -1,5 +1,8 @@
 
+
 package com.company;
+
+import static com.company.Main.WrongNames;
 
 public abstract class Shape {
     String color;
@@ -7,5 +10,13 @@ public abstract class Shape {
     public abstract float area();
     public abstract float circumference();
     public abstract void print();
+
+    public void checkName(){
+        for(int i=0; i< WrongNames.length; i++){
+            if(name.equals(WrongNames[i])){
+                throw new WrongNameException();
+            }
+        }
+    }
 
 }

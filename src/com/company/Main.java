@@ -26,6 +26,8 @@ public class Main {
                 System.out.println("Color corrected to RED");
                 randColor = 0;
             }
+
+
             String color= Colors[randColor];
 
             if(randShapeNum==0){
@@ -37,7 +39,7 @@ public class Main {
             }
 
             try{
-                checkName(testShape.name);
+                testShape.checkName();
             }catch (WrongNameException e){
                 e.printStackTrace();
                 testShape.name= testShape.name+"-Corrected";
@@ -86,13 +88,6 @@ public class Main {
     static void checkColor(int randColor) throws UnknownColorException {
         if (randColor == Colors.length){
             throw new UnknownColorException();
-        }
-    }
-    public static void checkName(String name){
-        for(int i=0; i< WrongNames.length; i++){
-            if(name.equals(WrongNames[i])){
-                throw new WrongNameException();
-            }
         }
     }
 
