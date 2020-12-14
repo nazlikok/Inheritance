@@ -11,7 +11,7 @@ public abstract class Shape {
     public abstract float circumference();
     public abstract void print();
 
-    public void checkName(){
+    public void checkName () throws WrongNameException {
         for(int i=0; i< WrongNames.length; i++){
             if(name.equals(WrongNames[i])){
                 throw new WrongNameException();
