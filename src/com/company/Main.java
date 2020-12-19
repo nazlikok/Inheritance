@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     static String[] Colors = {"Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "Orange", "Brown", "White", "Black"};
     static int totalNum = 100;
@@ -12,7 +15,8 @@ public class Main {
         int[] countColor = new int[Colors.length];
         float largestCircumference =0;
         Shape largestCircumferenceShape=null;
-        Shape[] allShapes = new Shape[totalNum];
+        //Shape[] allShapes = new Shape[totalNum];
+        List<Shape> allShapes = new ArrayList<>();
 
         for(int i=0; i<totalNum; i++){
 
@@ -53,7 +57,9 @@ public class Main {
 
             sumAreas= sumAreas+ testShape.area();
             testShape.print();
-            allShapes[i] = testShape;
+            //allShapes[i] = testShape;
+            allShapes.add(testShape);
+
         }
         float averageArea=sumAreas/totalNum;
         System.out.println("Average Area:" +averageArea);
@@ -67,8 +73,16 @@ public class Main {
         }
         System.out.println();
 
-        Shape[] redShapes= new Shape[countColor[0]];
-        int redIndex = 0;
+        //Shape[] redShapes= new Shape[countColor[0]];
+        List<Shape> redShapes= new ArrayList<>();
+        //int redIndex = 0;
+        for(Shape shape : allShapes){
+            if(shape.color.equals("Red")){
+                redShapes.add(shape);
+            }
+        }
+
+        /*
         for (int i = 0; i < allShapes.length; i++) {
             if (allShapes[i].color.equals("Red")) {
                 redShapes[redIndex] = allShapes[i];
@@ -76,13 +90,27 @@ public class Main {
             }
         }
 
+         */
+
+        if(!redShapes.isEmpty()){
+            //sortShapeArray(redShapes);
+            System.out.println("Sorted Red Shapes By Area");
+            for(Shape redShape : redShapes){
+                redShape.print();
+            }
+        }
+
+        /*
+
         if(redShapes.length!=0){
-            sortShapeArray(redShapes);
+            //sortShapeArray(redShapes);
             System.out.println("Sorted Red Shapes By Area");
             for (int i = 0; i < redShapes.length; i++) {
                 redShapes[i].print();
             }
         }
+
+         */
     }
 
     static void checkColor(int randColor) throws UnknownColorException {
@@ -140,7 +168,7 @@ public class Main {
         testRectangle.color=color;
         return testRectangle;
     }
-
+/*
     static void sortShapeArray(Shape[] shapes) {
         //bubble sort
         int n = shapes.length;
@@ -154,4 +182,6 @@ public class Main {
             }
         }
     }
+
+ */
 }
