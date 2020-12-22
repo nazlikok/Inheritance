@@ -1,7 +1,9 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     static String[] Colors = {"Red", "Green", "Yellow", "Blue", "Purple", "Cyan", "Orange", "Brown", "White", "Black"};
@@ -93,7 +95,7 @@ public class Main {
          */
 
         if(!redShapes.isEmpty()){
-            //sortShapeArray(redShapes);
+            sortShapeArray(redShapes);
             System.out.println("Sorted Red Shapes By Area");
             for(Shape redShape : redShapes){
                 redShape.print();
@@ -168,6 +170,22 @@ public class Main {
         testRectangle.color=color;
         return testRectangle;
     }
+
+    static void sortShapeArray(List<Shape> shapes){
+        shapes.sort(new Comparator<Shape>() {
+            @Override
+            public int compare(Shape o1, Shape o2) {
+                if(o1.area()>o2.area()){
+                    return 1;
+                }else if(o1.area()<o2.area()){
+                    return -1;
+                }else{
+                    return 0;
+                }
+            }
+        });
+    }
+
 /*
     static void sortShapeArray(Shape[] shapes) {
         //bubble sort
